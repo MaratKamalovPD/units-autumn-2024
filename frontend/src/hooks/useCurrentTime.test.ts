@@ -1,5 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { useCurrentTime } from './useCurrentTime';
+
+
 describe('useCurrentTime Hook', () => {
     beforeAll(() => {
         jest.useFakeTimers();
@@ -16,8 +18,8 @@ describe('useCurrentTime Hook', () => {
 
     it('should return current time', () => {
         const { result } = renderHook(() => useCurrentTime());
-        const currentTime = new Date().toLocaleTimeString('ru-RU');
-        expect(result.current).toBe(currentTime);
+        jest.setSystemTime(new Date('2024-01-01 09:00:00').getTime());
+        expect(result.current).toBe('09:00:00');
     });
 
     it('should update time every second', () => {
